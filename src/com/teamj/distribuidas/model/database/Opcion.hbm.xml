@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2016 11:39:16 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.teamj.distribuidas.model.database.Opcion" table="opcion" catalog="seguridad">
+        <id name="codigo" type="java.lang.Integer">
+            <column name="codigo" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="sistema" class="com.teamj.distribuidas.model.database.Sistema" fetch="select">
+            <column name="sistema_codigo" not-null="true" />
+        </many-to-one>
+        <many-to-one name="opcion" class="com.teamj.distribuidas.model.database.Opcion" fetch="select">
+            <column name="opcion_codigo" />
+        </many-to-one>
+        <property name="nombreOpcion" type="string">
+            <column name="nombre_opcion" length="45" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="500" />
+        </property>
+        <property name="nivel" type="string">
+            <column name="nivel" length="100" />
+        </property>
+        <set name="opcions" table="opcion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="opcion_codigo" />
+            </key>
+            <one-to-many class="com.teamj.distribuidas.model.database.Opcion" />
+        </set>
+        <set name="ventanas" table="ventana" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="opcion_codigo" not-null="true" />
+            </key>
+            <one-to-many class="com.teamj.distribuidas.model.database.Ventana" />
+        </set>
+        <set name="opcionDePerfils" table="opcion_de_perfil" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="opcion_codigo" not-null="true" />
+            </key>
+            <one-to-many class="com.teamj.distribuidas.model.database.OpcionDePerfil" />
+        </set>
+    </class>
+</hibernate-mapping>

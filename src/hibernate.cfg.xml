@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/seguridad?zeroDateTimeBehavior=convertToNull</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">007007</property>
+        <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <mapping resource="com/teamj/distribuidas/model/database/Ventana.hbm.xml"/>
+        <mapping resource="com/teamj/distribuidas/model/database/Usuario.hbm.xml"/>
+        <mapping resource="com/teamj/distribuidas/model/database/OpcionDePerfil.hbm.xml"/>
+        <mapping resource="com/teamj/distribuidas/model/database/Historico.hbm.xml"/>
+        <mapping resource="com/teamj/distribuidas/model/database/Rol.hbm.xml"/>
+        <mapping resource="com/teamj/distribuidas/model/database/UsuarioXPerfil.hbm.xml"/>
+        <mapping resource="com/teamj/distribuidas/model/database/Opcion.hbm.xml"/>
+        <mapping resource="com/teamj/distribuidas/model/database/Persona.hbm.xml"/>
+        <mapping resource="com/teamj/distribuidas/model/database/Perfil.hbm.xml"/>
+        <mapping resource="com/teamj/distribuidas/model/database/Sistema.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>

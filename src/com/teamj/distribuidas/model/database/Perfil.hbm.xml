@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2016 11:39:16 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.teamj.distribuidas.model.database.Perfil" table="perfil" catalog="seguridad">
+        <id name="codigoPerfil" type="java.lang.Integer">
+            <column name="codigo_perfil" />
+            <generator class="identity" />
+        </id>
+        <property name="nombrePerfil" type="string">
+            <column name="nombre_perfil" length="45" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="500" />
+        </property>
+        <set name="usuarioXPerfils" table="usuario_x_perfil" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="perfil_codigo_perfil" not-null="true" />
+            </key>
+            <one-to-many class="com.teamj.distribuidas.model.database.UsuarioXPerfil" />
+        </set>
+        <set name="opcionDePerfils" table="opcion_de_perfil" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="perfil_codigo_perfil" not-null="true" />
+            </key>
+            <one-to-many class="com.teamj.distribuidas.model.database.OpcionDePerfil" />
+        </set>
+    </class>
+</hibernate-mapping>

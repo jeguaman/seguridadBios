@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2016 11:39:16 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.teamj.distribuidas.model.database.Ventana" table="ventana" catalog="seguridad">
+        <id name="codigo" type="java.lang.Integer">
+            <column name="codigo" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="opcion" class="com.teamj.distribuidas.model.database.Opcion" fetch="select">
+            <column name="opcion_codigo" not-null="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="50" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

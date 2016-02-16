@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2016 11:39:16 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.teamj.distribuidas.model.database.Usuario" table="usuario" catalog="seguridad">
+        <id name="codigo" type="java.lang.Integer">
+            <column name="codigo" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="persona" class="com.teamj.distribuidas.model.database.Persona" fetch="select">
+            <column name="persona_codigo" not-null="true" />
+        </many-to-one>
+        <property name="nombreUsuario" type="string">
+            <column name="nombre_usuario" length="45" not-null="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="250" not-null="true" />
+        </property>
+        <property name="fechaCreacion" type="timestamp">
+            <column name="fecha_creacion" length="19" not-null="true" />
+        </property>
+        <property name="fechaUltimoCambioClave" type="timestamp">
+            <column name="fecha_ultimo_cambio_clave" length="19" />
+        </property>
+        <property name="firmaElectronica" type="string">
+            <column name="firma_electronica" length="100" />
+        </property>
+        <set name="usuarioXPerfils" table="usuario_x_perfil" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="usuario_codigo" not-null="true" />
+            </key>
+            <one-to-many class="com.teamj.distribuidas.model.database.UsuarioXPerfil" />
+        </set>
+    </class>
+</hibernate-mapping>

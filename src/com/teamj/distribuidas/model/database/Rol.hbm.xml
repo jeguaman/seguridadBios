@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 15, 2016 11:39:16 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="com.teamj.distribuidas.model.database.Rol" table="rol" catalog="seguridad">
+        <id name="codigo" type="java.lang.Integer">
+            <column name="codigo" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="opcionDePerfil" class="com.teamj.distribuidas.model.database.OpcionDePerfil" fetch="select">
+            <column name="opcion_de_perfil_codigo" not-null="true" />
+        </many-to-one>
+        <property name="insertar" type="string">
+            <column name="insertar" length="1" />
+        </property>
+        <property name="consultar" type="string">
+            <column name="consultar" length="1" />
+        </property>
+        <property name="modificar" type="string">
+            <column name="modificar" length="1" />
+        </property>
+        <property name="eliminar" type="string">
+            <column name="eliminar" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>
