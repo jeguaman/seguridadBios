@@ -38,6 +38,7 @@ public class FacadeNegocio {
             }
         } catch (Exception e) {
             System.err.println("No se inserto el usuario.");
+            System.err.println("No se inserto el usuario.");
             delegateException = e;
         } finally {
             hss.closeConnection();
