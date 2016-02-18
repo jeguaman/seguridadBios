@@ -50,4 +50,14 @@ public class PerfilQueries {
         }
         return perfil;
     }
+    public static void actualizarPerfil(Perfil perfil) {
+        Session session = HibernateUtilSeguridades.getSessionSeguridadFactory().getCurrentSession();
+        session.update(perfil);
+    }
+
+    public static void eliminarPerfil(Perfil perfil) {
+        Session session = HibernateUtilSeguridades.getSessionSeguridadFactory().getCurrentSession();
+        session.delete(perfil);
+    }
+
 }
