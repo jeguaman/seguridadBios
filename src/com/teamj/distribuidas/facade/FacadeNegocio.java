@@ -427,4 +427,23 @@ public class FacadeNegocio {
         }
         return success;
     }
+
+    public static Boolean actualizarPerfil(Perfil perfil) throws Exception {
+        HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
+        Exception delegateException = null;
+        Boolean success = false;
+        try {
+            PerfilQueries.actualizarPerfil(perfil);
+            success = true;
+        } catch (Exception ex) {
+            System.err.println("Error al actualizar perfil.");
+            delegateException = ex;
+        } finally {
+            hss.closeConnection();
+            if (delegateException != null) {
+                throw delegateException;
+            }
+        }
+        return success;
+    }
 }

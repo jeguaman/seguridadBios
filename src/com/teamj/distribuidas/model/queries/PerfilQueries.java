@@ -29,11 +29,22 @@ public class PerfilQueries {
         }
         return per;
     }
-    
+
     public static List<Perfil> retrieveListaPerfiles() {
         Session session = HibernateUtilSeguridades.getSessionSeguridadFactory().getCurrentSession();
         Query query = session.createQuery("from Perfil p");
         List<Perfil> lista = (List<Perfil>) query.list();
         return lista;
     }
+
+    public static void actualizarPerfil(Perfil perfil) {
+        Session session = HibernateUtilSeguridades.getSessionSeguridadFactory().getCurrentSession();
+        session.update(perfil);
+    }
+
+    public static void eliminarPerfil(Perfil perfil) {
+        Session session = HibernateUtilSeguridades.getSessionSeguridadFactory().getCurrentSession();
+        session.delete(perfil);
+    }
+
 }
