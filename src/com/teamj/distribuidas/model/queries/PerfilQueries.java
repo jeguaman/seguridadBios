@@ -29,11 +29,25 @@ public class PerfilQueries {
         }
         return per;
     }
-    
+
     public static List<Perfil> retrieveListaPerfiles() {
         Session session = HibernateUtilSeguridades.getSessionSeguridadFactory().getCurrentSession();
         Query query = session.createQuery("from Perfil p");
         List<Perfil> lista = (List<Perfil>) query.list();
         return lista;
+    }
+
+    public static Perfil retrievePerfilByCodigo(Integer _code) {
+        Session session = HibernateUtilSeguridades.getSessionSeguridadFactory().getCurrentSession();
+        Perfil perfil = null;
+        try {
+            Query query = session.createQuery("from Perfil as p where p.codigoPerfil=:codePatient");
+            query.setParameter("codePatient", _code);
+            perfil = (Perfil) query.uniqueResult();
+        } catch (HibernateException e) {
+            System.err.println("Error PacienteQueries retrieve by code.");
+            throw e;
+        }
+        return perfil;
     }
 }

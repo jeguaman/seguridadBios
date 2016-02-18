@@ -106,7 +106,15 @@ public class Usuario implements java.io.Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 3;
+        int hash = 5;
+        hash = 89 * hash + Objects.hashCode(this.codigo);
+        hash = 89 * hash + Objects.hashCode(this.persona);
+        hash = 89 * hash + Objects.hashCode(this.nombreUsuario);
+        hash = 89 * hash + Objects.hashCode(this.password);
+        hash = 89 * hash + Objects.hashCode(this.fechaCreacion);
+        hash = 89 * hash + Objects.hashCode(this.fechaUltimoCambioClave);
+        hash = 89 * hash + Objects.hashCode(this.firmaElectronica);
+        hash = 89 * hash + Objects.hashCode(this.usuarioXPerfils);
         return hash;
     }
 
