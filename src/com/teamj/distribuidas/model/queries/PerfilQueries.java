@@ -37,6 +37,19 @@ public class PerfilQueries {
         return lista;
     }
 
+    public static Perfil retrievePerfilByCodigo(Integer _code) {
+        Session session = HibernateUtilSeguridades.getSessionSeguridadFactory().getCurrentSession();
+        Perfil perfil = null;
+        try {
+            Query query = session.createQuery("from Perfil as p where p.codigoPerfil=:codePatient");
+            query.setParameter("codePatient", _code);
+            perfil = (Perfil) query.uniqueResult();
+        } catch (HibernateException e) {
+            System.err.println("Error PacienteQueries retrieve by code.");
+            throw e;
+        }
+        return perfil;
+    }
     public static void actualizarPerfil(Perfil perfil) {
         Session session = HibernateUtilSeguridades.getSessionSeguridadFactory().getCurrentSession();
         session.update(perfil);

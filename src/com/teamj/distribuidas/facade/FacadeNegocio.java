@@ -18,6 +18,7 @@ import com.teamj.distribuidas.model.queries.PersonalQueries;
 import com.teamj.distribuidas.model.queries.SistemaQueries;
 import com.teamj.distribuidas.model.queries.UsuarioQueries;
 import com.teamj.distribuidas.model.queries.UsuariosPerfilQueries;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -428,16 +429,48 @@ public class FacadeNegocio {
         return success;
     }
 
-    public static Boolean actualizarPerfil(Perfil perfil) throws Exception {
+    public static Boolean insertarUsuariosXPerfil(Integer codPerfil, List<Usuario> listaUsuario) throws Exception {
+        Boolean success = false;
+        Usuario user = null;
+        UsuarioXPerfil userXperfil = new UsuarioXPerfil();
         HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
         Exception delegateException = null;
-        Boolean success = false;
         try {
-            PerfilQueries.actualizarPerfil(perfil);
+            Perfil perfil = PerfilQueries.retrievePerfilByCodigo(codPerfil);
+            for (int i = 0; i < listaUsuario.size(); i++) {
+                user = UsuarioQueries.retrieveUsuariobyCode(listaUsuario.get(i).getCodigo());
+                userXperfil.setPerfil(perfil);
+                userXperfil.setUsuario(user);
+                userXperfil.setFechaAsignacion(new Date());
+                userXperfil.setMotivo("Valor ingresado manualmente.");
+                UsuariosPerfilQueries.insertarUsuariosXPerfil(userXperfil);
+            }
             success = true;
-        } catch (Exception ex) {
-            System.err.println("Error al actualizar perfil.");
-            delegateException = ex;
+        } catch (Exception e) {
+            System.err.println("No se inserto el perfil.");
+            delegateException = e;
+        } finally {
+            hss.closeConnection();
+            if (delegateException != null) {
+                throw delegateException;
+            }
+        }
+        return success;
+    }
+
+    public static Boolean eliminarUsuariosXPerfil(Integer codPerfil, List<Usuario> listaUsuario) throws Exception {
+        Boolean success = false;
+        HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
+        Exception delegateException = null;
+        try {
+            for (int i = 0; i < listaUsuario.size(); i++) {
+                UsuarioXPerfil userElim = UsuariosPerfilQueries.retrieveUsuarioXPerfilBy_CodUsuario_codPerfil(listaUsuario.get(i).getCodigo(), codPerfil);
+                UsuariosPerfilQueries.eliminarUsuarioXPerfil(userElim);
+            }
+            success = true;
+        } catch (Exception e) {
+            System.err.println("No se inserto el perfil.");
+            delegateException = e;
         } finally {
             hss.closeConnection();
             if (delegateException != null) {
