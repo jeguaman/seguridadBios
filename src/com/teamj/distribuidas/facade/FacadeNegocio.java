@@ -7,12 +7,14 @@ package com.teamj.distribuidas.facade;
 
 import com.teamj.distribuidas.conn.HibernateSessionHandlerSeguridades;
 import com.teamj.distribuidas.model.database.Opcion;
+import com.teamj.distribuidas.model.database.OpcionDePerfil;
 import com.teamj.distribuidas.model.database.Perfil;
 import com.teamj.distribuidas.model.database.Persona;
 import com.teamj.distribuidas.model.database.Sistema;
 import com.teamj.distribuidas.model.database.Usuario;
 import com.teamj.distribuidas.model.database.UsuarioXPerfil;
 import com.teamj.distribuidas.model.queries.OpcionQueries;
+import com.teamj.distribuidas.model.queries.OpcionesPerfilQueries;
 import com.teamj.distribuidas.model.queries.PerfilQueries;
 import com.teamj.distribuidas.model.queries.PersonalQueries;
 import com.teamj.distribuidas.model.queries.SistemaQueries;
@@ -477,5 +479,59 @@ public class FacadeNegocio {
             }
         }
         return success;
+    }
+
+    public static List<Opcion> retrieveOpcionesByCodigoSistema(Integer cod) throws Exception {
+        List<Opcion> lista = null;
+        HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
+        Exception delegateException = null;
+        try {
+            lista = OpcionQueries.retrieveListaOpciones();
+        } catch (Exception e) {
+            System.err.println("No se puede traer las opciones por sistema.");
+            delegateException = e;
+        } finally {
+            hss.closeConnection();
+            if (delegateException != null) {
+                throw delegateException;
+            }
+        }
+        return lista;
+    }
+
+    public static List<OpcionDePerfil> retrieveListaOpcionesDePerfil() throws Exception {
+        List<OpcionDePerfil> lista = null;
+        HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
+        Exception delegateException = null;
+        try {
+            lista = OpcionesPerfilQueries.retrieveListaOpcionesDePerfil();
+        } catch (Exception e) {
+            System.err.println("No se puede traer los servicios.");
+            delegateException = e;
+        } finally {
+            hss.closeConnection();
+            if (delegateException != null) {
+                throw delegateException;
+            }
+        }
+        return lista;
+    }
+
+    public static UsuarioXPerfil retrieveUsuarioXPerfilBy_CodUsuario(Integer codUser) throws Exception {
+        UsuarioXPerfil lista = null;
+        HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
+        Exception delegateException = null;
+        try {
+            lista = UsuariosPerfilQueries.retrieveUsuarioXPerfilBy_CodUsuario(codUser);
+        } catch (Exception e) {
+            System.err.println("No se puede traer los servicios.");
+            delegateException = e;
+        } finally {
+            hss.closeConnection();
+            if (delegateException != null) {
+                throw delegateException;
+            }
+        }
+        return lista;
     }
 }

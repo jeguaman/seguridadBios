@@ -17,7 +17,7 @@ public class Test {
     public static void main(String[] args) {
         try {
             //FacadeNegocio.retrieveTodosUsuariosByPerfil(1);
-            FacadeNegocio.retrieveListUsuariosNoAsignados();
+            FacadeNegocio.retrieveUsuarioXPerfilBy_CodUsuario(6);
             System.out.println("");
         } catch (Exception ex) {
             Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);

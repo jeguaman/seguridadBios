@@ -68,4 +68,19 @@ public class UsuariosPerfilQueries {
         }
         return patient;
     }
+    public static UsuarioXPerfil retrieveUsuarioXPerfilBy_CodUsuario(Integer codUsuario) {
+        Session session = HibernateUtilSeguridades.getSessionSeguridadFactory().getCurrentSession();
+        UsuarioXPerfil patient = null;
+        try {
+//Query query = session.createQuery("from Usuario as p inner join fetch p.usuarioXPerfils u where u.perfil.codigoPerfil=:codg");            
+//Query query = session.createQuery("from PepagPagser p left join fetch p.pepacPacien left join fetch p.peserServic");
+            Query query = session.createQuery("from UsuarioXPerfil p left join fetch p.perfil left join fetch p.usuario as u where u.codigo=:codeUser");
+            query.setParameter("codeUser", codUsuario);
+            patient = (UsuarioXPerfil) query.uniqueResult();
+        } catch (HibernateException e) {
+            System.err.println("Error UsuarioXPerfil retrieve by code.");
+            throw e;
+        }
+        return patient;
+    }
 }
