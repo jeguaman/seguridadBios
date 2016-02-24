@@ -93,7 +93,7 @@ public class FacadeNegocio {
         Exception delegateException = null;
         Boolean success = false;
         try {
-            UsuarioQueries.actualizarServicio(usuario);
+            UsuarioQueries.actualizarUsuario(usuario);
             success = true;
         } catch (Exception ex) {
             System.err.println("Error al actualizar usuario.");
@@ -278,12 +278,12 @@ public class FacadeNegocio {
         return lista;
     }
 
-    public static Boolean insertarOpcion(Opcion perfil) throws Exception {
+    public static Boolean insertarOpcion(Opcion opcion) throws Exception {
         Boolean success = false;
         HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
         Exception delegateException = null;
         try {
-            if (OpcionQueries.insertarOpcion(perfil) != null) {
+            if (OpcionQueries.insertarOpcion(opcion) != null) {
                 success = true;
             }
         } catch (Exception e) {
@@ -487,7 +487,7 @@ public class FacadeNegocio {
         HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
         Exception delegateException = null;
         try {
-            lista = OpcionQueries.retrieveListaOpciones();
+            lista = OpcionQueries.retrieveOpcionesByCodigoSistema(cod);
         } catch (Exception e) {
             System.err.println("No se puede traer las opciones por sistema.");
             delegateException = e;
@@ -500,7 +500,7 @@ public class FacadeNegocio {
         return lista;
     }
 
-    public static List<OpcionDePerfil> retrieveListaOpcionesDePerfil() throws Exception {
+    public static List<OpcionDePerfil> retrieveListaSoloOpcionesDePerfil() throws Exception {
         List<OpcionDePerfil> lista = null;
         HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
         Exception delegateException = null;
@@ -526,6 +526,132 @@ public class FacadeNegocio {
             lista = UsuariosPerfilQueries.retrieveUsuarioXPerfilBy_CodUsuario(codUser);
         } catch (Exception e) {
             System.err.println("No se puede traer los servicios.");
+            delegateException = e;
+        } finally {
+            hss.closeConnection();
+            if (delegateException != null) {
+                throw delegateException;
+            }
+        }
+        return lista;
+    }
+
+    public static List<Opcion> retrieveOpcionByNivel(String nivel) throws Exception {
+        List<Opcion> lista = null;
+        HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
+        Exception delegateException = null;
+        try {
+            lista = OpcionQueries.retrieveOpcionesByNivel(nivel);
+        } catch (Exception e) {
+            System.err.println("No se puede traer las opciones por nivel.");
+            delegateException = e;
+        } finally {
+            hss.closeConnection();
+            if (delegateException != null) {
+                throw delegateException;
+            }
+        }
+        return lista;
+    }
+
+    public static Sistema retrieveSistemaById(Integer codigo) throws Exception {
+        Sistema lista = null;
+        HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
+        Exception delegateException = null;
+        try {
+            lista = SistemaQueries.retrieveSistemaById(codigo);
+        } catch (Exception e) {
+            System.err.println("No se puede traer los servicios.");
+            delegateException = e;
+        } finally {
+            hss.closeConnection();
+            if (delegateException != null) {
+                throw delegateException;
+            }
+        }
+        return lista;
+    }
+
+    public static Opcion retrieveOpcionByCodigo(Integer cod) throws Exception {
+        Opcion lista = null;
+        HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
+        Exception delegateException = null;
+        try {
+            lista = OpcionQueries.retrieveOpcionByCodigo(cod);
+        } catch (Exception e) {
+            System.err.println("No se puede traer las opciones por sistema.");
+            delegateException = e;
+        } finally {
+            hss.closeConnection();
+            if (delegateException != null) {
+                throw delegateException;
+            }
+        }
+        return lista;
+    }
+
+    public static List<Opcion> retrieveOpcionByNivelAndCodigoPadre(String nivel, Integer codPadre) throws Exception {
+        List<Opcion> lista = null;
+        HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
+        Exception delegateException = null;
+        try {
+            lista = OpcionQueries.retrieveOpcionByNivelAndCodigoPadre(nivel, codPadre);
+        } catch (Exception e) {
+            System.err.println("No se puede traer las opciones por nivel y codigopadre.");
+            delegateException = e;
+        } finally {
+            hss.closeConnection();
+            if (delegateException != null) {
+                throw delegateException;
+            }
+        }
+        return lista;
+    }
+
+    public static List<OpcionDePerfil> retrieveListaOpcionesDePerfilJoin() throws Exception {
+        List<OpcionDePerfil> lista = null;
+        HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
+        Exception delegateException = null;
+        try {
+            lista = OpcionesPerfilQueries.retrieveListaOpcionesDePerfilJoin();
+        } catch (Exception e) {
+            System.err.println("No se puede traer los servicios.");
+            delegateException = e;
+        } finally {
+            hss.closeConnection();
+            if (delegateException != null) {
+                throw delegateException;
+            }
+        }
+        return lista;
+    }
+
+    public static List<Opcion> retrieveListaOpcionesPadres() throws Exception {
+        List<Opcion> lista = null;
+        HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
+        Exception delegateException = null;
+        try {
+            lista = OpcionQueries.retrieveListaOpcionesPadres();
+        } catch (Exception e) {
+            System.err.println("No se puede traer los perfiles.");
+            delegateException = e;
+        } finally {
+            hss.closeConnection();
+            if (delegateException != null) {
+                throw delegateException;
+            }
+        }
+        return lista;
+    }
+
+    public static List<Opcion> retrieveOpcionesByPerfil(Integer nivel) throws Exception {
+        List<Opcion> lista = null;
+        HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
+        Exception delegateException = null;
+        try {
+            lista = OpcionQueries.retrieveOpcionesByPerfil(nivel);
+        } catch (Exception e) {
+            System.err.println("No se puede traer las opciones por nivel.");
             delegateException = e;
         } finally {
             hss.closeConnection();

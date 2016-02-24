@@ -24,4 +24,11 @@ public class OpcionesPerfilQueries {
         List<OpcionDePerfil> lista = (List<OpcionDePerfil>) query.list();
         return lista;
     }
+
+    public static List<OpcionDePerfil> retrieveListaOpcionesDePerfilJoin() {
+        Session session = HibernateUtilSeguridades.getSessionSeguridadFactory().getCurrentSession();
+        Query query = session.createQuery("from OpcionDePerfil p left join fetch p.opcion left join fetch p.perfil ");
+        List<OpcionDePerfil> lista = (List<OpcionDePerfil>) query.list();
+        return lista;
+    }
 }

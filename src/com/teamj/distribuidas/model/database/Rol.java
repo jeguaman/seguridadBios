@@ -11,10 +11,10 @@ public class Rol  implements java.io.Serializable {
 
      private Integer codigo;
      private OpcionDePerfil opcionDePerfil;
-     private String insertar;
-     private String consultar;
-     private String modificar;
-     private String eliminar;
+     private Boolean insertar;
+     private Boolean consultar;
+     private Boolean modificar;
+     private Boolean eliminar;
 
     public Rol() {
     }
@@ -23,7 +23,7 @@ public class Rol  implements java.io.Serializable {
     public Rol(OpcionDePerfil opcionDePerfil) {
         this.opcionDePerfil = opcionDePerfil;
     }
-    public Rol(OpcionDePerfil opcionDePerfil, String insertar, String consultar, String modificar, String eliminar) {
+    public Rol(OpcionDePerfil opcionDePerfil, Boolean insertar, Boolean consultar, Boolean modificar, Boolean eliminar) {
        this.opcionDePerfil = opcionDePerfil;
        this.insertar = insertar;
        this.consultar = consultar;
@@ -45,32 +45,32 @@ public class Rol  implements java.io.Serializable {
     public void setOpcionDePerfil(OpcionDePerfil opcionDePerfil) {
         this.opcionDePerfil = opcionDePerfil;
     }
-    public String getInsertar() {
+    public Boolean getInsertar() {
         return this.insertar;
     }
     
-    public void setInsertar(String insertar) {
+    public void setInsertar(Boolean insertar) {
         this.insertar = insertar;
     }
-    public String getConsultar() {
+    public Boolean getConsultar() {
         return this.consultar;
     }
     
-    public void setConsultar(String consultar) {
+    public void setConsultar(Boolean consultar) {
         this.consultar = consultar;
     }
-    public String getModificar() {
+    public Boolean getModificar() {
         return this.modificar;
     }
     
-    public void setModificar(String modificar) {
+    public void setModificar(Boolean modificar) {
         this.modificar = modificar;
     }
-    public String getEliminar() {
+    public Boolean getEliminar() {
         return this.eliminar;
     }
     
-    public void setEliminar(String eliminar) {
+    public void setEliminar(Boolean eliminar) {
         this.eliminar = eliminar;
     }
 

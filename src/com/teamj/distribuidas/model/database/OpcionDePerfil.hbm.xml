@@ -20,7 +20,7 @@
         <property name="estado" type="string">
             <column name="estado" length="2" />
         </property>
-        <set name="rols" table="rol" inverse="true" lazy="true" fetch="select">
+        <set name="rols" table="rol" inverse="true" lazy="false" fetch="subselect">
             <key>
                 <column name="opcion_de_perfil_codigo" not-null="true" />
             </key>

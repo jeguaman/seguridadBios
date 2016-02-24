@@ -37,11 +37,21 @@ public class SistemaQueries {
         }
         return per;
     }
+
     public static List<Sistema> retrieveListSistemas() {
         Session session = HibernateUtilSeguridades.getSessionSeguridadFactory().getCurrentSession();
         Query query = session.createQuery("from Sistema p");
         List<Sistema> lista = (List<Sistema>) query.list();
         return lista;
+    }
+
+    public static Sistema retrieveSistemaById(Integer codigo) {
+        Session session = HibernateUtilSeguridades.getSessionSeguridadFactory().getCurrentSession();
+        Sistema sist = null;
+        Query query = session.createQuery("from Sistema p where p.codigo=:asd");
+        query.setParameter("asd", codigo);
+        sist = (Sistema) query.uniqueResult();
+        return sist;
     }
 
 }

@@ -11,17 +11,17 @@
         <many-to-one name="opcionDePerfil" class="com.teamj.distribuidas.model.database.OpcionDePerfil" fetch="select">
             <column name="opcion_de_perfil_codigo" not-null="true" />
         </many-to-one>
-        <property name="insertar" type="string">
-            <column name="insertar" length="1" />
+        <property name="insertar" type="java.lang.Boolean">
+            <column name="insertar" />
         </property>
-        <property name="consultar" type="string">
-            <column name="consultar" length="1" />
+        <property name="consultar" type="java.lang.Boolean">
+            <column name="consultar" />
         </property>
-        <property name="modificar" type="string">
-            <column name="modificar" length="1" />
+        <property name="modificar" type="java.lang.Boolean">
+            <column name="modificar" />
         </property>
-        <property name="eliminar" type="string">
-            <column name="eliminar" length="1" />
+        <property name="eliminar" type="java.lang.Boolean">
+            <column name="eliminar" />
         </property>
     </class>
 </hibernate-mapping>

@@ -65,7 +65,7 @@ public class UsuarioQueries {
         return lista;
     }
 
-    public static void actualizarServicio(Usuario pac) {
+    public static void actualizarUsuario(Usuario pac) {
         Session session = HibernateUtilSeguridades.getSessionSeguridadFactory().getCurrentSession();
         session.update(pac);
     }
