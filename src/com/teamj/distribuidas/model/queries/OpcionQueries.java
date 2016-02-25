@@ -85,8 +85,9 @@ public class OpcionQueries {
     public static List<Opcion> retrieveOpcionesByPerfil(Integer codPerfil) {
         Session session = HibernateUtilSeguridades.getSessionSeguridadFactory().getCurrentSession();
         List<Opcion> lista = null;
-        Query query = session.createQuery("from Opcion p left join fetch p.opcionDePerfils per where per.perfil.codigoPerfil=:codePatient");
+        Query query = session.createQuery("from Opcion p left join fetch p.opcionDePerfils per where per.perfil.codigoPerfil=:codePatient and per.estado=:var");
         query.setParameter("codePatient", codPerfil);
+        query.setParameter("var", true);
         lista = (List<Opcion>) query.list();
         return lista;
     }

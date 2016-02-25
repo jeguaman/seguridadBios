@@ -16,7 +16,7 @@ public class OpcionDePerfil  implements java.io.Serializable {
      private Perfil perfil;
      private Opcion opcion;
      private Date fechaAsignacion;
-     private String estado;
+     private Boolean estado;
      private Set rols = new HashSet(0);
 
     public OpcionDePerfil() {
@@ -27,7 +27,7 @@ public class OpcionDePerfil  implements java.io.Serializable {
         this.perfil = perfil;
         this.opcion = opcion;
     }
-    public OpcionDePerfil(Perfil perfil, Opcion opcion, Date fechaAsignacion, String estado, Set rols) {
+    public OpcionDePerfil(Perfil perfil, Opcion opcion, Date fechaAsignacion, Boolean estado, Set rols) {
        this.perfil = perfil;
        this.opcion = opcion;
        this.fechaAsignacion = fechaAsignacion;
@@ -63,11 +63,11 @@ public class OpcionDePerfil  implements java.io.Serializable {
     public void setFechaAsignacion(Date fechaAsignacion) {
         this.fechaAsignacion = fechaAsignacion;
     }
-    public String getEstado() {
+    public Boolean getEstado() {
         return this.estado;
     }
     
-    public void setEstado(String estado) {
+    public void setEstado(Boolean estado) {
         this.estado = estado;
     }
     public Set getRols() {

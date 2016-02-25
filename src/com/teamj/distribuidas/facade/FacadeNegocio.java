@@ -10,6 +10,7 @@ import com.teamj.distribuidas.model.database.Opcion;
 import com.teamj.distribuidas.model.database.OpcionDePerfil;
 import com.teamj.distribuidas.model.database.Perfil;
 import com.teamj.distribuidas.model.database.Persona;
+import com.teamj.distribuidas.model.database.Rol;
 import com.teamj.distribuidas.model.database.Sistema;
 import com.teamj.distribuidas.model.database.Usuario;
 import com.teamj.distribuidas.model.database.UsuarioXPerfil;
@@ -17,6 +18,7 @@ import com.teamj.distribuidas.model.queries.OpcionQueries;
 import com.teamj.distribuidas.model.queries.OpcionesPerfilQueries;
 import com.teamj.distribuidas.model.queries.PerfilQueries;
 import com.teamj.distribuidas.model.queries.PersonalQueries;
+import com.teamj.distribuidas.model.queries.RolQueries;
 import com.teamj.distribuidas.model.queries.SistemaQueries;
 import com.teamj.distribuidas.model.queries.UsuarioQueries;
 import com.teamj.distribuidas.model.queries.UsuariosPerfilQueries;
@@ -660,5 +662,141 @@ public class FacadeNegocio {
             }
         }
         return lista;
+    }
+
+    public static Rol retrieveRolesByCodigoOpcion(Integer nivel) throws Exception {
+        Rol lista = null;
+        HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
+        Exception delegateException = null;
+        try {
+            lista = RolQueries.retrieveRolesByCodigoOpcion(nivel);
+        } catch (Exception e) {
+            System.err.println("No se puede traer las opciones por nivel.");
+            delegateException = e;
+        } finally {
+            hss.closeConnection();
+            if (delegateException != null) {
+                throw delegateException;
+            }
+        }
+        return lista;
+    }
+
+    public static Rol retrieveRolesByCodigoOpcionAndCodigoPerfil(Integer codigoOpcion, Integer codPerfil) throws Exception {
+        Rol lista = null;
+        HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
+        Exception delegateException = null;
+        try {
+            lista = RolQueries.retrieveRolesByCodigoOpcionAndCodigoPerfil(codigoOpcion, codPerfil);
+        } catch (Exception e) {
+            System.err.println("No se puede traer las opciones por nivel.");
+            delegateException = e;
+        } finally {
+            hss.closeConnection();
+            if (delegateException != null) {
+                throw delegateException;
+            }
+        }
+        return lista;
+    }
+
+    public static Boolean updateRoles(Rol rol) throws Exception {
+        Boolean success = false;
+        HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
+        Exception delegateException = null;
+        try {
+            RolQueries.updateRoles(rol);
+            success = true;
+        } catch (Exception e) {
+            System.err.println("No se puede traer las opciones por nivel.");
+            delegateException = e;
+        } finally {
+            hss.closeConnection();
+            if (delegateException != null) {
+                throw delegateException;
+            }
+        }
+        return success;
+    }
+
+    public static OpcionDePerfil insertarOpcionesXPerfil(Integer codPerfil, Integer codOpcion) throws Exception {
+        OpcionDePerfil odp = null;
+        OpcionDePerfil opcionXperfil = new OpcionDePerfil();
+        HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
+        Exception delegateException = null;
+        try {
+            opcionXperfil.setFechaAsignacion(new Date());
+            opcionXperfil.setEstado(Boolean.TRUE);
+            opcionXperfil.setOpcion(OpcionQueries.retrieveOpcionByCodigo(codOpcion));
+            opcionXperfil.setPerfil(PerfilQueries.retrievePerfilByCodigo(codPerfil));
+            odp = OpcionesPerfilQueries.insertarOpcionesXPerfil(opcionXperfil);
+        } catch (Exception e) {
+            System.err.println("No se inserto el OpcionDePerfil.");
+            delegateException = e;
+        } finally {
+            hss.closeConnection();
+            if (delegateException != null) {
+                throw delegateException;
+            }
+        }
+        return odp;
+    }
+
+    public static Rol insertarRol(Rol rol) throws Exception {
+        Rol r = null;
+        HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
+        Exception delegateException = null;
+        try {
+            r = RolQueries.insertarRolesOpcionPerfil(rol);
+        } catch (Exception e) {
+            System.err.println("No se inserto el rol.");
+            delegateException = e;
+        } finally {
+            hss.closeConnection();
+            if (delegateException != null) {
+                throw delegateException;
+            }
+        }
+        return r;
+    }
+
+    public static OpcionDePerfil retrieveOpcionesXPerfilByCodPerfilAndCodOpcion(Integer codigoPerfil, Integer codigoOpcion) throws Exception {
+        OpcionDePerfil r = null;
+        HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
+        Exception delegateException = null;
+        try {
+            r = OpcionesPerfilQueries.retrieveOpcionesXPerfilByCodPerfilAndCodOpcion(codigoPerfil, codigoOpcion);
+        } catch (Exception e) {
+            System.err.println("No se puede traer la opcion de perfilF");
+            delegateException = e;
+        } finally {
+            hss.closeConnection();
+            if (delegateException != null) {
+                throw delegateException;
+            }
+        }
+        return r;
+    }
+
+    public static Boolean updateOpcionesXPerfilByCodPerfilAndCodOpcion(Integer codigoPerfil, Integer codigoOpcion, Boolean valor) throws Exception {
+        OpcionDePerfil r = null;
+        Boolean success = false;
+        HibernateSessionHandlerSeguridades hss = new HibernateSessionHandlerSeguridades();
+        Exception delegateException = null;
+        try {
+            r = OpcionesPerfilQueries.retrieveOpcionesXPerfilByCodPerfilAndCodOpcion(codigoPerfil, codigoOpcion);
+            r.setEstado(valor);
+            OpcionesPerfilQueries.actualizarOpcionesPorPerfil(r);
+            success=true;
+        } catch (Exception e) {
+            System.err.println("No se puede traer la opcion de perfilF");
+            delegateException = e;
+        } finally {
+            hss.closeConnection();
+            if (delegateException != null) {
+                throw delegateException;
+            }
+        }
+        return success;
     }
 }
